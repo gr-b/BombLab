@@ -1,0 +1,42 @@
+Dump of assembler code for function phase_2:
+     		       // Phase 2 is called with phase_2(input)
+		       // What holds (input)?
+   0x0000000000400fac <+0>:	push   rbp
+   		      		// Push base pointer onto stack
+				// Bottom of current stack frame
+   0x0000000000400fad <+1>:	push   rbx
+   		      		// rbx is expected to stay the same
+   0x0000000000400fae <+2>:	sub    rsp,0x28
+   		      		// stackptr = stackpointer - 0x28
+				// Subtract 0x28 from stackptr
+   0x0000000000400fb2 <+6>:	mov    rsi,rsp
+   		      		// rsi is second arg?
+				// Probably pointer the stackptr
+				// to the given input
+
+				// stackptr = &input
+   0x0000000000400fb5 <+9>:	call   0x401797 <read_six_numbers>
+   
+   0x0000000000400fba <+14>:	cmp    DWORD PTR [rsp],0x0
+   0x0000000000400fbe <+18>:	jne    0x400fc7 <phase_2+27>
+   0x0000000000400fc0 <+20>:	cmp    DWORD PTR [rsp+0x4],0x1
+   0x0000000000400fc5 <+25>:	je     0x400fe8 <phase_2+60>
+   0x0000000000400fc7 <+27>:	call   0x401761 <explode_bomb>
+   0x0000000000400fcc <+32>:	jmp    0x400fe8 <phase_2+60>
+   0x0000000000400fce <+34>:	mov    eax,DWORD PTR [rbx-0x8]
+   0x0000000000400fd1 <+37>:	add    eax,DWORD PTR [rbx-0x4]
+   0x0000000000400fd4 <+40>:	cmp    DWORD PTR [rbx],eax
+   0x0000000000400fd6 <+42>:	je     0x400fdd <phase_2+49>
+   0x0000000000400fd8 <+44>:	call   0x401761 <explode_bomb>
+   0x0000000000400fdd <+49>:	add    rbx,0x4
+   0x0000000000400fe1 <+53>:	cmp    rbx,rbp
+   0x0000000000400fe4 <+56>:	jne    0x400fce <phase_2+34>
+   0x0000000000400fe6 <+58>:	jmp    0x400ff4 <phase_2+72>
+   0x0000000000400fe8 <+60>:	lea    rbx,[rsp+0x8]
+   0x0000000000400fed <+65>:	lea    rbp,[rsp+0x18]
+   0x0000000000400ff2 <+70>:	jmp    0x400fce <phase_2+34>
+   0x0000000000400ff4 <+72>:	add    rsp,0x28
+   0x0000000000400ff8 <+76>:	pop    rbx
+   0x0000000000400ff9 <+77>:	pop    rbp
+   0x0000000000400ffa <+78>:	ret    
+End of assembler dump.

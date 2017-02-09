@@ -1,0 +1,143 @@
+Dump of assembler code for function phase_6:
+   0x0000000000401247 <+0>:	push   r14
+   0x0000000000401249 <+2>:	push   r13
+   0x000000000040124b <+4>:	push   r12
+   0x000000000040124d <+6>:	push   rbp
+   0x000000000040124e <+7>:	push   rbx
+   0x000000000040124f <+8>:	sub    rsp,0x50
+   0x0000000000401253 <+12>:	mov    r13,rsp
+   0x0000000000401256 <+15>:	mov    rsi,rsp
+   0x0000000000401259 <+18>:	call   0x401797 <read_six_numbers>
+ 				// Up until this is just getting
+				// Inputs ready on the stack
+
+				// r13, rsi, and r14 are all rsp right now
+ 				// Also rbp		
+	
+   0x000000000040125e <+23>:	mov    r14,rsp
+   0x0000000000401261 <+26>:	mov    r12d,0x0
+
+				// Loop starts here
+				// Make sure every argument is unique
+   0x0000000000401267 <+32>:	mov    rbp,r13
+
+   0x000000000040126a <+35>:	mov    eax,DWORD PTR [r13+0x0]
+					// eax = firstStackArg
+		// Check if all arguments are below 7? (lessorequal to 6)
+   0x000000000040126e <+39>:	sub    eax,0x1
+   0x0000000000401271 <+42>:	cmp    eax,0x5
+   0x0000000000401274 <+45>:	jbe    0x40127b <phase_6+52>
+   0x0000000000401276 <+47>:	call   0x401761 <explode_bomb>
+   0x000000000040127b <+52>:	add    r12d,0x1
+   0x000000000040127f <+56>:	cmp    r12d,0x6
+   0x0000000000401283 <+60>:	je     0x4012a6 <phase_6+95>
+   0x0000000000401285 <+62>:	mov    ebx,r12d
+		
+				// For each argument
+				// Make sure they are all different
+   0x0000000000401288 <+65>:	movsxd rax,ebx
+   0x000000000040128b <+68>:	mov    eax,DWORD PTR [rsp+rax*4]
+   0x000000000040128e <+71>:	cmp    DWORD PTR [rbp+0x0],eax
+   0x0000000000401291 <+74>:	jne    0x401298 <phase_6+81>
+   0x0000000000401293 <+76>:	call   0x401761 <explode_bomb>
+   0x0000000000401298 <+81>:	add    ebx,0x1
+   0x000000000040129b <+84>:	cmp    ebx,0x5
+   0x000000000040129e <+87>:	jle    0x401288 <phase_6+65>
+
+   0x00000000004012a0 <+89>:	add    r13,0x4
+   0x00000000004012a4 <+93>:	jmp    0x401267 <phase_6+32>
+
+	///////////// End of upper loop /////////////////
+
+   0x00000000004012a6 <+95>:	lea    rsi,[rsp+0x18]
+				// Load address of 6th arg into rsi
+   0x00000000004012ab <+100>:	mov    rax,r14
+				// r14 is still rsp from before
+				// So rax is stack
+   0x00000000004012ae <+103>:	mov    ecx,0x7
+
+				// Loop start 
+				// Loop throught the args,
+				// subtract each arg from 7
+   0x00000000004012b3 <+108>:	mov    edx,ecx
+   0x00000000004012b5 <+110>:	sub    edx,DWORD PTR [rax] 
+				// Sub current thing on stack?
+				// edx = edx - arg
+				edx = 7 - arg
+   0x00000000004012b7 <+112>:	mov    DWORD PTR [rax],edx
+				// Put it back on stack
+				// arg = 7 - arg
+   0x00000000004012b9 <+114>:	add    rax,0x4 // Rax is next arg
+   0x00000000004012bd <+118>:	cmp    rax,rsi
+   0x00000000004012c0 <+121>:	jne    0x4012b3 <phase_6+108>
+			
+			// args are less than 7, now the difference to 7
+
+   0x00000000004012c2 <+123>:	mov    esi,0x0
+   0x00000000004012c7 <+128>:	jmp    0x4012ea <phase_6+163>
+
+   0x00000000004012c9 <+130>:	mov    rdx,QWORD PTR [rdx+0x8]
+   0x00000000004012cd <+134>:	add    eax,0x1 // Shift everything down?
+   0x00000000004012d0 <+137>:	cmp    eax,ecx
+   0x00000000004012d2 <+139>:	jne    0x4012c9 <phase_6+130>
+   0x00000000004012d4 <+141>:	jmp    0x4012db <phase_6+148>
+
+				// Put that memry thing at stack args
+				// Until rsi is 24-> so for all 6 args...
+   0x00000000004012d6 <+143>:	mov    edx,0x604310
+   0x00000000004012db <+148>:	mov    QWORD PTR [rsp+rsi*2+0x20],rdx
+   0x00000000004012e0 <+153>:	add    rsi,0x4
+   0x00000000004012e4 <+157>:	cmp    rsi,0x18
+   0x00000000004012e8 <+161>:	je     0x4012fe <phase_6+183> 
+
+				// Get next stack arg
+   0x00000000004012ea <+163>:	mov    ecx,DWORD PTR [rsp+rsi*1]
+   0x00000000004012ed <+166>:	cmp    ecx,0x1 // only move on if its more than
+						// 1
+   0x00000000004012f0 <+169>:	jle    0x4012d6 <phase_6+143>
+
+
+   0x00000000004012f2 <+171>:	mov    eax,0x1
+   0x00000000004012f7 <+176>:	mov    edx,0x604310
+   0x00000000004012fc <+181>:	jmp    0x4012c9 <phase_6+130>
+
+   0x00000000004012fe <+183>:	mov    rbx,QWORD PTR [rsp+0x20]
+					// Put 5th arg in rbx
+   0x0000000000401303 <+188>:	lea    rax,[rsp+0x28]
+   0x0000000000401308 <+193>:	lea    rsi,[rsp+0x50]
+   0x000000000040130d <+198>:	mov    rcx,rbx
+
+				// loop
+   0x0000000000401310 <+201>:	mov    rdx,QWORD PTR [rax]
+   0x0000000000401313 <+204>:	mov    QWORD PTR [rcx+0x8],rdx
+   0x0000000000401317 <+208>:	add    rax,0x8 // put rdx into thing 8 above rdx
+   0x000000000040131b <+212>:	cmp    rax,rsi
+   0x000000000040131e <+215>:	je     0x401325 <phase_6+222>
+				// 
+
+   0x0000000000401320 <+217>:	mov    rcx,rdx
+   0x0000000000401323 <+220>:	jmp    0x401310 <phase_6+201
+>
+   0x0000000000401325 <+222>:	mov    QWORD PTR [rdx+0x8],0x0
+   0x000000000040132d <+230>:	mov    ebp,0x5
+   0x0000000000401332 <+235>:	mov    rax,QWORD PTR [rbx+0x8]
+					// compare value with
+					// value 8 later
+					// only move on if strictly >
+   0x0000000000401336 <+239>:	mov    eax,DWORD PTR [rax]
+   0x0000000000401338 <+241>:	cmp    DWORD PTR [rbx],eax
+					// compare node
+   0x000000000040133a <+243>:	jge    0x401341 <phase_6+250>
+   0x000000000040133c <+245>:	call   0x401761 <explode_bomb>
+
+   0x0000000000401341 <+250>:	mov    rbx,QWORD PTR [rbx+0x8]
+   0x0000000000401345 <+254>:	sub    ebp,0x1
+   0x0000000000401348 <+257>:	jne    0x401332 <phase_6+235>
+   0x000000000040134a <+259>:	add    rsp,0x50
+   0x000000000040134e <+263>:	pop    rbx
+   0x000000000040134f <+264>:	pop    rbp
+   0x0000000000401350 <+265>:	pop    r12
+   0x0000000000401352 <+267>:	pop    r13
+   0x0000000000401354 <+269>:	pop    r14
+   0x0000000000401356 <+271>:	ret    
+End of assembler dump.

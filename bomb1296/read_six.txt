@@ -1,0 +1,52 @@
+Dump of assembler code for function read_six_numbers:
+     		       	   	// stackptr is currently at rsi
+   0x0000000000401797 <+0>:	sub    rsp,0x18
+   		      		// stackptr = stackptr - 0x18
+   0x000000000040179b <+4>:	mov    rdx,rsi
+   		      		// What's in rdx? should be third arg?
+				// rsi = rdx;
+				// put third arg in second arg
+				
+				// rsp = rsi from last, so we're looking 
+				relative to where rsi was.
+
+   0x000000000040179e <+7>:	lea    rcx,[rsi+0x4]
+   		      		// x+4 = h
+
+   		      		// rcx is fourth arg
+				// [rsi+0x4] is the doubword directly before rsi,
+				// so work directly before arg 2
+				// So put the address of 4th arg after 2nd arg?
+				
+				put address of 4th arg before 2nd arg
+   0x00000000004017a2 <+11>:	lea    rax,[rsi+0x14]
+   		      		// put return address 14 after 2nd arg
+
+   0x00000000004017a6 <+15>:	mov    QWORD PTR [rsp+0x8],rax
+   		      		// put the return address 8 after the current
+				// stack ptr.
+
+   0x00000000004017ab <+20>:	lea    rax,[rsi+0x10]
+   		      		// set the address ten above the second arg
+				// to point to the return value
+
+   0x00000000004017af <+24>:	mov    QWORD PTR [rsp],rax
+   		      		// retval = current thing stack pts to.
+
+   0x00000000004017b3 <+28>:	lea    r9,[rsi+0xc]
+   0x00000000004017b7 <+32>:	lea    r8,[rsi+0x8]
+   0x00000000004017bb <+36>:	mov    esi,0x402a81
+   0x00000000004017c0 <+41>:	mov    eax,0x0
+   		      		// Set number of strings gotten to 0
+   0x00000000004017c5 <+46>:	call   0x400cb0 <__isoc99_sscanf@plt>
+   		      		// Read strings in
+   0x00000000004017ca <+51>:	cmp    eax,0x5
+   		      		// If there aren't six strings, explode,
+   0x00000000004017cd <+54>:	jg     0x4017d4 <read_six_numbers+61>
+   0x00000000004017cf <+56>:	call   0x401761 <explode_bomb>
+   		      		// If there are, put stack ptr back 18 down
+   0x00000000004017d4 <+61>:	add    rsp,0x18
+   		      		// We should now have 6 strings in the 
+				// space above rsp.
+   0x00000000004017d8 <+65>:	ret    
+End of assembler dump.

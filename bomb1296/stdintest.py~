@@ -1,0 +1,33 @@
+import sys
+import StringIO
+import subprocess
+import time
+from subprocess import Popen, PIPE
+import os
+
+#args = "./noserver grbishop-1296.txt"
+
+#oldstdin = sys.stdin
+
+#print("test")
+#sys.stdin = StringIO.StringIO('500')
+
+#subprocess.call(["./noserver", "grbishop-1296.txt"])
+#print("test2")
+#time.sleep(1)
+#sys.stdin = StringIO.StringIO('650')
+
+p = subprocess.Popen('./noserver', stdin=PIPE)
+
+args = ['Why make trillions when we could make... billions?',
+        '0 1 1 2 3 5',
+        '7 j 764',
+        '11 1 DrEvil',
+        '5 115',
+        '1 6 5 4 2 3',
+        '650']
+text = open('hello.txt','w')
+p.stdout = text
+out, err = p.communicate(os.linesep.join(args))
+print("exe done")
+close(text)

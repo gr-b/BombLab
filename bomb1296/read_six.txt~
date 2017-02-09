@@ -1,0 +1,19 @@
+Dump of assembler code for function read_six_numbers:
+   0x0000000000401797 <+0>:	sub    rsp,0x18
+   0x000000000040179b <+4>:	mov    rdx,rsi
+   0x000000000040179e <+7>:	lea    rcx,[rsi+0x4]
+   0x00000000004017a2 <+11>:	lea    rax,[rsi+0x14]
+   0x00000000004017a6 <+15>:	mov    QWORD PTR [rsp+0x8],rax
+   0x00000000004017ab <+20>:	lea    rax,[rsi+0x10]
+   0x00000000004017af <+24>:	mov    QWORD PTR [rsp],rax
+   0x00000000004017b3 <+28>:	lea    r9,[rsi+0xc]
+   0x00000000004017b7 <+32>:	lea    r8,[rsi+0x8]
+   0x00000000004017bb <+36>:	mov    esi,0x402a81
+   0x00000000004017c0 <+41>:	mov    eax,0x0
+   0x00000000004017c5 <+46>:	call   0x400cb0 <__isoc99_sscanf@plt>
+   0x00000000004017ca <+51>:	cmp    eax,0x5
+   0x00000000004017cd <+54>:	jg     0x4017d4 <read_six_numbers+61>
+   0x00000000004017cf <+56>:	call   0x401761 <explode_bomb>
+   0x00000000004017d4 <+61>:	add    rsp,0x18
+   0x00000000004017d8 <+65>:	ret    
+End of assembler dump.
